@@ -1,0 +1,158 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "CORS",
+        "importPath": "flask_cors",
+        "description": "flask_cors",
+        "isExtraImport": true,
+        "detail": "flask_cors",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "razorpay",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "razorpay",
+        "description": "razorpay",
+        "detail": "razorpay",
+        "documentation": {}
+    },
+    {
+        "label": "hmac",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hmac",
+        "description": "hmac",
+        "detail": "hmac",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "_Known",
+        "kind": 6,
+        "importPath": "frontend.node_modules.flatted.python.flatted",
+        "description": "frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _Known:\n    def __init__(self):\n        self.key = []\n        self.value = []\nclass _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0",
+        "detail": "frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "_String",
+        "kind": 6,
+        "importPath": "frontend.node_modules.flatted.python.flatted",
+        "description": "frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0\n    for _ in value:\n        keys.append(i)\n        i += 1\n    return keys",
+        "detail": "frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "parse",
+        "kind": 2,
+        "importPath": "frontend.node_modules.flatted.python.flatted",
+        "description": "frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "def parse(value, *args, **kwargs):\n    json = _json.loads(value, *args, **kwargs)\n    wrapped = []\n    for value in json:\n        wrapped.append(_wrap(value))\n    input = []\n    for value in wrapped:\n        if isinstance(value, _String):\n            input.append(value.value)\n        else:",
+        "detail": "frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "stringify",
+        "kind": 2,
+        "importPath": "frontend.node_modules.flatted.python.flatted",
+        "description": "frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "def stringify(value, *args, **kwargs):\n    known = _Known()\n    input = []\n    output = []\n    i = int(_index(known, input, value))\n    while i < len(input):\n        output.append(_transform(known, input, input[i]))\n        i += 1\n    return _json.dumps(output, *args, **kwargs)",
+        "detail": "frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "createOrder",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def createOrder():\n    try:\n        data = request.get_json()\n        amount= int(data[\"amount\"])\n        options = {\n            \"amount\":amount*100,\n            \"currency\":\"INR\",\n            \"receipt\":f\"receipt_{datetime.now().strftime(\"%d%m%Y%H%M%S\")}\",\n            \"payment_capture\":1\n        }",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "verify",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def verify():\n    data= request.get_json()\n    razorpay_payment_id= data[\"razorpay_payment_id\"]\n    razorpay_order_id= data[\"razorpay_order_id\"]\n    razorpay_signature= data[\"razorpay_signature\"]\n    body= f\"{razorpay_order_id}|{razorpay_payment_id}\"\n    expectedSignature = hmac.new(\n        bytes(os.getenv(\"KeySecret\"),'utf-8'),\n        bytes(body,'utf-8'),\n        hashlib.sha256",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "razorpay_client",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "razorpay_client = razorpay.Client(auth=(\n    os.getenv(\"keyId\"),\n    os.getenv(\"KeySecret\")\n)\n)\n@app.route(\"/payment\",methods=[\"POST\"])\ndef createOrder():\n    try:\n        data = request.get_json()\n        amount= int(data[\"amount\"])",
+        "detail": "app",
+        "documentation": {}
+    }
+]
