@@ -19,7 +19,7 @@ function App() {
         handler:async (res)=>{
           console.log(res)
           const response = await axios.post("http://localhost:5000/verify",res)
-          console.log(response)
+          console.log(response.data)
           if(response.status==200)
           {
             swal(`Payment_Id: ${response.data.message}`,`${res.razorpay_payment_id}`,'success')
